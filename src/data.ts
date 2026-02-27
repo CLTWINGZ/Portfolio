@@ -41,7 +41,9 @@ export type PortfolioData = {
   email: string;
   phone: string;
   github: string;
+  githubRepo: string;
   linkedin: string;
+  profilePhoto: string;
 
   profile: string;
   highlights: string[];
@@ -65,7 +67,7 @@ export type PortfolioData = {
 
   reference: Reference;
 
-  // Put your PDF into /public and set this path:
+  // Set a local file path (from /public) or an external URL:
   cvDownloadPath: string;
 };
 
@@ -76,7 +78,9 @@ const data: PortfolioData = {
   email: "chethanalakthilina3@gmail.com",
   phone: "+94 783 076 220",
   github: "https://github.com/CLTWINGZ",
+  githubRepo: "https://github.com/CLTWINGZ/Portfolio",
   linkedin: "https://linkedin.com/in/chethana-jathunarachchi-2ba45b281",
+  profilePhoto: "/profile-photo.jpg",
 
   profile:
     "Software Engineering fresh graduate with hands-on experience in full-stack web development using React, Node.js, Express, PHP, MySQL, and MongoDB. Completed an internship at the Civil Aviation Authority of Sri Lanka, contributing to internal systems and inventory management applications, plus an aviation-themed AI-integrated hotel room management system. Seeking a Full Stack Software Engineer Intern or Associate Software Engineer role.",
@@ -196,7 +200,7 @@ const data: PortfolioData = {
     email: "ranaweera.r@nsbm.lk",
   },
 
-  cvDownloadPath: "/Chethana_Lakthilina_Jathunarachchi_CV.pdf",
+  cvDownloadPath: "https://www.overleaf.com/read/svtckzqczvpt#6b8332",
 };
 
 export default data;

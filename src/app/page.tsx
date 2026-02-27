@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import Image from "next/image";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import data from "../data";
 import {
@@ -64,6 +65,7 @@ export default function Page() {
   const d = data;
 
   const [theme, setTheme] = useState<Theme>("dark");
+  const [profileImageFailed, setProfileImageFailed] = useState(false);
 
   useEffect(() => {
     setTheme(getInitialTheme());
@@ -76,12 +78,41 @@ export default function Page() {
 
   const themeIcon = useMemo(() => (theme === "dark" ? <Moon size={18} /> : <Sun size={18} />), [theme]);
   const themeLabel = theme === "dark" ? "Dark" : "Light";
+  const initials = useMemo(
+    () =>
+      d.name
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((part) => part[0]?.toUpperCase() ?? "")
+        .join(""),
+    [d.name],
+  );
 
   return (
     <div className="bg">
       <div className="noise" />
       <div className="glow g1" />
       <div className="glow g2" />
+      <div className="liveBackdrop" aria-hidden="true">
+        <div className="aurora a1" />
+        <div className="aurora a2" />
+        <div className="aurora a3" />
+        <div className="liveParticles">
+          <span className="particle p1" />
+          <span className="particle p2" />
+          <span className="particle p3" />
+          <span className="particle p4" />
+          <span className="particle p5" />
+          <span className="particle p6" />
+          <span className="particle p7" />
+          <span className="particle p8" />
+          <span className="particle p9" />
+          <span className="particle p10" />
+          <span className="particle p11" />
+          <span className="particle p12" />
+        </div>
+      </div>
 
       <div className="container">
         <header className="hero card">
@@ -112,8 +143,9 @@ export default function Page() {
             <div className="ctaRow">
               <LinkBtn href={`mailto:${d.email}`} label="Email" icon={<Mail size={16} />} />
               <LinkBtn href={d.github} label="GitHub" icon={<Github size={16} />} />
+              <LinkBtn href={d.githubRepo} label="GitHub Repo" icon={<FolderGit2 size={16} />} />
               <LinkBtn href={d.linkedin} label="LinkedIn" icon={<Linkedin size={16} />} />
-              <LinkBtn href={d.cvDownloadPath} label="Download CV" icon={<Download size={16} />} />
+              <LinkBtn href={d.cvDownloadPath} label="View Updated CV" icon={<Download size={16} />} />
             </div>
 
             <div className="pillRow">
@@ -150,6 +182,24 @@ export default function Page() {
           </div>
 
           <div className="heroRight">
+            <div className="profilePhotoCard">
+              {profileImageFailed ? (
+                <div className="profilePhotoFallback" aria-label={`${d.name} profile placeholder`}>
+                  <span>{initials}</span>
+                </div>
+              ) : (
+                <Image
+                  className="profilePhoto"
+                  src={d.profilePhoto}
+                  alt={`${d.name} profile photo`}
+                  width={360}
+                  height={420}
+                  priority
+                  onError={() => setProfileImageFailed(true)}
+                />
+              )}
+            </div>
+
             <div className="stats">
               <div className="stat">
                 <p className="statNum">Full-Stack</p>
